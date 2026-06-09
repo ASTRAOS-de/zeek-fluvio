@@ -1,0 +1,8 @@
+# Cached upstream versions of dependencies. Updated only by CI after successful compatibility run.
+# Format:
+# <dependency_name>=<version>
+
+zeek=8.0.8
+fluvio=0.18.0
+fluvio_client_cpp=0.1.0
+
