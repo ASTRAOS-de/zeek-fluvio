@@ -26,6 +26,13 @@ jobs:
       fluvio_client_cpp: ${{ steps.upstream.outputs.fluvio_client_cpp }}
 
     steps:
+      - name: Generate a token
+        id: generate-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ vars.CICD_APP_ID }}
+          private-key: ${{ secrets.CICD_APP_SECRET_KEY }}
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
@@ -165,7 +172,7 @@ jobs:
 
       - name: Update cache and commit
         env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          GITHUB_TOKEN: "${{ steps.generate-token.outputs.token }}"
           GITHUB_REPOSITORY: "${{ github.repository }}"
           ZEEK_VERSION: "${{ needs.check_upstreams.outputs.zeek }}"
           FLUVIO_VERSION: "${{ needs.check_upstreams.outputs.fluvio }}"

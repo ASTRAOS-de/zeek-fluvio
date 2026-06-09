@@ -19,6 +19,13 @@ jobs:
       ref: ${{ steps.branch.outputs.ref }}
       branch_name: ${{ steps.branch.outputs.branch_name }}
     steps:
+      - name: Generate a token
+        id: generate-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ vars.CICD_APP_ID }}
+          private-key: ${{ secrets.CICD_APP_SECRET_KEY }}
+
       - name: Capture branch metadata
         id: branch
         run: |
@@ -65,7 +72,7 @@ jobs:
       - name: Bump VERSION, commit and tag
         env:
           BRANCH_NAME: "${{ needs.validate_branch.outputs.branch_name }}"
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          GITHUB_TOKEN: "${{ steps.generate-token.outputs.token }}"
           GITHUB_REPOSITORY: "${{ github.repository }}"
           TARGET_BRANCH: "${{ needs.validate_branch.outputs.ref }}"
         run: |
@@ -124,5 +131,5 @@ jobs:
           tag_name: "v${{ steps.get_version.outputs.version }}"
           generate_release_notes: true
         env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          GITHUB_TOKEN: "${{ steps.generate-token.outputs.token }}"
 
