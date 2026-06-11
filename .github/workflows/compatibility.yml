@@ -157,16 +157,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check Variables for Token creation
-        run: |
-          if [[ -z "${{ vars.CICD_APP_CLIENT_ID }}" ]]; then
-            echo "ERROR: Missing variable CICD_APP_CLIENT_ID"
-            exit 1
-          fi
-          if [[ -z "${{ secrets.CICD_APP_SECRET_KEY }}" ]]; then
-              echo "ERROR: Missing secret CICD_APP_SECRET_KEY"
-              exit 1
-          fi
       - name: Generate a token
         uses: actions/create-github-app-token@v3
         id: generate-token

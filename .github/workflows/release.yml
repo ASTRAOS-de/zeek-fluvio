@@ -1,7 +1,7 @@
 name: Release
 
 on:
-  pull_request:
+  pull_request_target:
     types: [closed]
     branches:
       - main
@@ -56,16 +56,6 @@ jobs:
     if: "${{ github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true }}"
     runs-on: ubuntu-latest
     steps:
-      - name: Check Variables for Token creation
-        run: |
-          if [[ -z "${{ vars.CICD_APP_CLIENT_ID }}" ]]; then
-            echo "ERROR: Missing variable CICD_APP_CLIENT_ID"
-            exit 1
-          fi
-          if [[ -z "${{ secrets.CICD_APP_SECRET_KEY }}" ]]; then
-              echo "ERROR: Missing secret CICD_APP_SECRET_KEY"
-              exit 1
-          fi
       - name: Generate a token
         uses: actions/create-github-app-token@v3
         id: generate-token
