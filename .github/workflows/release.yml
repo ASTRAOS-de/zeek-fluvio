@@ -47,7 +47,7 @@ jobs:
 
   compatibility:
     needs: validate_branch
-    if: "${{ github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true }}"
+    if: "${{ github.event_name == 'pull_request_target' && github.event.action == 'closed' && github.event.pull_request.merged == true }}"
     uses: ./.github/workflows/compatibility.yml
     with:
       ref: ${{ needs.validate_branch.outputs.ref }}
@@ -55,7 +55,7 @@ jobs:
 
   release_from_pr:
     needs: [validate_branch, compatibility]
-    if: "${{ github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true }}"
+    if: "${{ github.event_name == 'pull_request_target' && github.event.action == 'closed' && github.event.pull_request.merged == true }}"
     runs-on: ubuntu-latest
     steps:
       - name: Generate a token
