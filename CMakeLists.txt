@@ -12,7 +12,8 @@ endforeach()
 include(FetchContent)
 FetchContent_Declare(
         fluvio_client_cpp
-        URL https://github.com/ASTRAOS-de/fluvio-client-cpp/releases/download/v${FLUVIO_CLIENT_CPP_VERSION}/fluvio-client-cpp-linux-x64.tar.gz
+        GIT_REPOSITORY https://github.com/ASTRAOS-de/fluvio-client-cpp.git
+        GIT_TAG v${FLUVIO_CLIENT_CPP_VERSION}
 )
 
 FetchContent_MakeAvailable(fluvio_client_cpp)
