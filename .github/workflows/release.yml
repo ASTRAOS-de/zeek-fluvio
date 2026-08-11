@@ -16,7 +16,7 @@ jobs:
     if: ${{ github.event_name == 'pull_request_target' &&
       github.event.action == 'closed' &&
       github.event.pull_request.merged == true }}
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     outputs:
       ref: ${{ steps.branch.outputs.ref }}
       branch_name: ${{ steps.branch.outputs.branch_name }}
@@ -56,7 +56,7 @@ jobs:
   release_from_pr:
     needs: [validate_branch, compatibility]
     if: "${{ github.event_name == 'pull_request_target' && github.event.action == 'closed' && github.event.pull_request.merged == true }}"
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Generate a token
         uses: actions/create-github-app-token@v3
@@ -134,4 +134,3 @@ jobs:
           generate_release_notes: true
         env:
           GITHUB_TOKEN: "${{ steps.generate-token.outputs.token }}"
-

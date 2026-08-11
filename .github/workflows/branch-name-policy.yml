@@ -10,7 +10,7 @@ on:
 
 jobs:
   validate:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Get branch name
         id: branch
@@ -33,5 +33,3 @@ jobs:
               exit 1
               ;;
           esac
-
-

@@ -16,7 +16,7 @@ permissions:
 
 jobs:
   check_upstreams:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     outputs:
       changed: ${{ steps.upstream.outputs.changed }}
@@ -154,7 +154,7 @@ jobs:
   update_cache:
     needs: [check_upstreams, ci, ci_tls]
     if: "${{ needs.check_upstreams.outputs.changed == 'true' }}"
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
       - name: Generate a token
@@ -179,7 +179,7 @@ jobs:
           FLUVIO_CLIENT_CPP_VERSION: "${{ needs.check_upstreams.outputs.fluvio_client_cpp }}"
         run: |
           set -euo pipefail
-          
+
           cat > UPSTREAM_VERSIONS <<EOF
           zeek=${ZEEK_VERSION}
           fluvio=${FLUVIO_VERSION}
