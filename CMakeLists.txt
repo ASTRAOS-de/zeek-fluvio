@@ -12,14 +12,13 @@ endforeach()
 include(FetchContent)
 FetchContent_Declare(
         fluvio_client_cpp
-        GIT_REPOSITORY https://github.com/ASTRAOS-de/fluvio-client-cpp.git
-        GIT_TAG v${FLUVIO_CLIENT_CPP_VERSION}
+        URL https://github.com/ASTRAOS-de/fluvio-client-cpp/releases/download/v${FLUVIO_CLIENT_CPP_VERSION}/fluvio-client-cpp-linux-x64.tar.gz
 )
-
 FetchContent_MakeAvailable(fluvio_client_cpp)
 
-get_target_property(FLUVIO_INC ASTRAOS::fluvio_client_cpp INTERFACE_INCLUDE_DIRECTORIES)
-include_directories(BEFORE ${FLUVIO_INC})
+# The tarball already has its own Config.cmake, so just point find_package at it
+list(APPEND CMAKE_PREFIX_PATH "${fluvio_client_cpp_SOURCE_DIR}")
+find_package(fluvio_client_cpp CONFIG REQUIRED)
 
 zeek_plugin_begin(ZEEK FLUVIO)
 zeek_plugin_cc(src/Plugin.cc)
