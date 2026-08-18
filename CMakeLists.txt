@@ -18,7 +18,7 @@ FetchContent_MakeAvailable(fluvio_client_cpp)
 
 # The tarball already has its own Config.cmake, so just point find_package at it
 list(APPEND CMAKE_PREFIX_PATH "${fluvio_client_cpp_SOURCE_DIR}")
-find_package(fluvio_client_cpp 0.1 CONFIG REQUIRED)
+find_package(fluvio_client_cpp CONFIG REQUIRED)
 
 zeek_plugin_begin(ZEEK FLUVIO)
 zeek_plugin_cc(src/Plugin.cc)

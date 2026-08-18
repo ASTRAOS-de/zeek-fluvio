@@ -1,9 +1,8 @@
 #pragma once
-#include "rust/cxx.h"
-#include "fluvio-client-cpp/src/lib.rs.h"
+#include <fluvio_client_cpp/rust/cxx.h>
+#include <fluvio_client_cpp/lib.rs.h>
 #include <zeek/logging/WriterBackend.h>
 #include <zeek/threading/formatters/JSON.h>
-#include <fluvio.h>
 #include <string>
 
 namespace logging {
